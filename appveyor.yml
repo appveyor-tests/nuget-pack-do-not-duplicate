@@ -1,0 +1,11 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+before_build:
+- cmd: nuget restore
+build:
+  publish_nuget: true
+  verbosity: minimal
+artifacts:
+- path: '**\*.nupkg'
+deploy_script:
+- ps: if($artifacts.Count -gt 1) {throw "duplicate artifacts packaged"}
